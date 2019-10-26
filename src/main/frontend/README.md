@@ -1,6 +1,6 @@
-# Red Hat AppDev Chat (vue-chat)
+# STP AppDev Chat (vuechat)
 
-A simple Vert.x+VueJS Chat App
+A simple Vue+Vert.x application for char
 
 ## Install the dependencies
 ```bash

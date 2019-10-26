@@ -11,7 +11,7 @@ module.exports = function (ctx) {
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: [
-      'app.sass'
+      'app.css'
     ],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
@@ -60,6 +60,7 @@ module.exports = function (ctx) {
       // analyze: true,
       // preloadChunks: false,
       // extractCSS: false,
+      distDir: '../resources/webroot/',
 
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {
@@ -96,9 +97,9 @@ module.exports = function (ctx) {
       // workboxPluginMode: 'InjectManifest',
       // workboxOptions: {}, // only for NON InjectManifest
       manifest: {
-        // name: 'Red Hat AppDev Chat',
-        // short_name: 'Red Hat AppDev Chat',
-        // description: 'A simple Vert.x+VueJS Chat App',
+        // name: 'STP AppDev Chat',
+        // short_name: 'STP AppDev Chat',
+        // description: 'A simple Vue+Vert.x application for char',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
@@ -135,7 +136,7 @@ module.exports = function (ctx) {
 
     // https://quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
     cordova: {
-      // id: 'com.redhat.stp.appdev.vuechat',
+      // id: 'com.redhat.stp.appdev.chat',
       // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
     },
 
@@ -164,7 +165,7 @@ module.exports = function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        // appId: 'vue-chat'
+        // appId: 'vuechat'
       }
     }
   }

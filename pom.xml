@@ -138,9 +138,20 @@
             <!-- optional: default phase is "generate-resources" -->
             <phase>generate-resources</phase>
           </execution>
+          <execution>
+            <id>run-jest-tests</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>prepare-package</phase>
+            <configuration>
+              <arguments>run build</arguments>
+            </configuration>
+          </execution>
         </executions>
         <configuration>
           <nodeVersion>v12.13.0</nodeVersion>
+          <workingDirectory>src/main/frontend</workingDirectory>
         </configuration>
       </plugin>
       <!-- Optional plugins for using Spock -->
