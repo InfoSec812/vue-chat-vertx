@@ -6,11 +6,6 @@ This application was generated using http://start.vertx.io
 
 == Building
 
-To launch your tests:
-```
-./mvnw clean test
-```
-
 To package your application:
 ```
 ./mvnw clean package
@@ -18,7 +13,7 @@ To package your application:
 
 To run your application:
 ```
-./mvnw clean compile exec:java
+./mvnw clean compile vertx:run
 ```
 
 == Help
