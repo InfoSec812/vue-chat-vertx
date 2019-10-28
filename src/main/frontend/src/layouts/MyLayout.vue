@@ -115,8 +115,8 @@ export default {
   },
   mounted() {
     this.userhash = this.gravatar();
-    // let eventBusUrl = window.location.protocol + "//" + window.location.host + "/eventbus";
-    let eventBusUrl = window.location.protocol + "//localhost:8080/eventbus";
+    let eventBusUrl = window.location.protocol + "//" + window.location.host + "/eventbus";
+    // let eventBusUrl = window.location.protocol + "//localhost:8080/eventbus";
     console.log("Initializing event bus bridge: " + eventBusUrl);
     let options = {
       vertxbus_reconnect_attempts_max: Infinity, // Max reconnect attempts
@@ -166,6 +166,7 @@ export default {
         }
       });
     };
+    this.$refs.editorInput.focus();
   }
 };
 </script>
