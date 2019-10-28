@@ -59,7 +59,7 @@ pipeline {
         script {
           openshift.withCluster() {
             openshift.withProject(env.BUILD) {
-              openshift.selector('bc', env.APP_NAME).startBuild("--from-file=target/${env.APP_NAME}*.jar", '--wait')
+              openshift.selector('bc', 'vue-vertx-chat').startBuild("--from-file=target/${env.APP_NAME}*.jar", '--wait')
             }
           }
         }
