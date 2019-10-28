@@ -28,8 +28,11 @@ public class MainVerticle extends AbstractVerticle {
       .addOutboundPermitted(new PermittedOptions().setAddress("messages"));
     SockJSHandler sockJsBridge = SockJSHandler.create(vertx);
     sockJsBridge.bridge(bridgeOpts);
-    router.route().handler(StaticHandler.create("webroot"));
+    router.get("/health").handler(ctx -> {
+      ctx.response().setStatusCode(200).setStatusMessage("OK").end("{ \"status\": \"OK\" }");
+    });
     router.route("/eventbus/*").handler(sockJsBridge);
+    router.route().handler(StaticHandler.create("webroot"));
     vertx.createHttpServer()
       .requestHandler(router::accept)
       .rxListen(8080, "0.0.0.0")
