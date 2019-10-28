@@ -9,7 +9,7 @@ retriever: modernSCM(
 openshift.withCluster() {
   env.NAMESPACE = openshift.project()
   env.POM_FILE = env.BUILD_CONTEXT_DIR ? "${env.BUILD_CONTEXT_DIR}/pom.xml" : "pom.xml"
-  env.APP_NAME = "${JOB_NAME}".replaceAll(/-build.*/, '')
+  env.APP_NAME = 'vue-vertx-chat'
   echo "Starting Pipeline for ${APP_NAME}..."
   env.BUILD = "${env.NAMESPACE}"
   env.DEV = "deven-test-dev"
@@ -59,7 +59,7 @@ pipeline {
         script {
           openshift.withCluster() {
             openshift.withProject(env.BUILD) {
-              openshift.selector('bc', 'vue-vertx-chat').startBuild("--from-file=target/${env.APP_NAME}*.jar", '--wait')
+              openshift.selector('bc', env.APP_NAME).startBuild("--from-file=target/${env.APP_NAME}*.jar", '--wait')
             }
           }
         }
