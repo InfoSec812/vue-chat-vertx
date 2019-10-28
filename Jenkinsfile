@@ -13,8 +13,7 @@ openshift.withCluster() {
   echo "Starting Pipeline for ${APP_NAME}..."
   env.BUILD = "${env.NAMESPACE}"
   env.DEV = "${APP_NAME}-dev"
-  env.STAGE = "${APP_NAME}-stage"
-  env.PROD = "${APP_NAME}-prod"
+  env.STAGE = "${APP_NAME}-test"
 }
 
 pipeline {
@@ -98,18 +97,6 @@ pipeline {
         script {
           input message: 'Promote application to Production?'
         }
-      }
-    }
-
-    stage('Promote from Stage to Prod') {
-      steps {
-        tagImage(sourceImageName: env.APP_NAME, sourceImagePath: env.STAGE, toImagePath: env.PROD)
-      }
-    }
-
-    stage ('Verify Deployment to Prod') {
-      steps {
-        verifyDeployment(projectName: env.PROD, targetApp: env.APP_NAME)
       }
     }
   }
