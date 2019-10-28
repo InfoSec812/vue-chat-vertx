@@ -56,7 +56,7 @@ pipeline {
         // Giving all the artifacts to OpenShift Binary Build
         // This places your artifacts into right location inside your S2I image
         // if the S2I image supports it.
-        binaryBuild(projectName: env.BUILD, buildConfigName: env.APP_NAME, buildFromPath: "target/vue-chat*jar")
+        binaryBuild(projectName: env.BUILD, buildConfigName: env.APP_NAME, buildFromPath: "target/vue-chat*jar", buildFromFlag: "--from-file")
       }
     }
 
