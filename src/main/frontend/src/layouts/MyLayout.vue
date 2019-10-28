@@ -17,7 +17,7 @@
         v-model="messageinput"
         ref="editorInput"
         :dense="$q.screen.lt.md"
-        @change="sendMessage"
+        @keyup.enter="sendMessage"
         style="width: 90vw;"
       />
       <q-btn icon="send" @click="sendMessage" dense style="width: 30px;" />
@@ -68,7 +68,7 @@ export default {
     }
   },
   methods: {
-    sendMessage: function() {
+    sendMessage() {
       const holder = this.messageinput;
       if (this.messageinput.length > 0) {
         this.messageinput = "";
@@ -83,7 +83,7 @@ export default {
       }
       this.$refs.editorInput.focus();
     },
-    gravatar: () => {
+    gravatar() {
       let gravatar = "";
       if (this.$q.cookies.has('gravatar')) {
         gravatar = this.$q.cookies.get("gravatar");
@@ -115,8 +115,8 @@ export default {
   },
   mounted() {
     this.userhash = this.gravatar();
-    let eventBusUrl = window.location.protocol + "//" + window.location.host + "/eventbus";
-    // let eventBusUrl = window.location.protocol + "//localhost:8080/eventbus";
+    // let eventBusUrl = window.location.protocol + "//" + window.location.host + "/eventbus";
+    let eventBusUrl = window.location.protocol + "//localhost:8080/eventbus";
     console.log("Initializing event bus bridge: " + eventBusUrl);
     let options = {
       vertxbus_reconnect_attempts_max: Infinity, // Max reconnect attempts
