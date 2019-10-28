@@ -8,7 +8,7 @@ retriever: modernSCM(
 
 openshift.withCluster() {
   env.NAMESPACE = openshift.project()
-  env.POM_FILE = env.BUILD_CONTEXT_DIR ? "vue-chat-vertx/pom.xml" : "vue-chat-vertx/pom.xml"
+  env.POM_FILE = env.BUILD_CONTEXT_DIR ? "${env.BUILD_CONTEXT_DIR}/pom.xml" : "pom.xml"
   env.APP_NAME = "${JOB_NAME}".replaceAll(/-build.*/, '')
   echo "Starting Pipeline for ${APP_NAME}..."
   env.BUILD = "${env.NAMESPACE}"
@@ -45,7 +45,6 @@ pipeline {
     // Run Maven build, skipping tests
     stage('Build'){
       steps {
-        sh 'ls -l'
         sh "mvn -B clean package -f ${POM_FILE}"
       }
     }
