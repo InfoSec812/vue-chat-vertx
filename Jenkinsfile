@@ -12,8 +12,8 @@ openshift.withCluster() {
   env.APP_NAME = "${JOB_NAME}".replaceAll(/-build.*/, '')
   echo "Starting Pipeline for ${APP_NAME}..."
   env.BUILD = "${env.NAMESPACE}"
-  env.DEV = "${APP_NAME}-dev"
-  env.STAGE = "${APP_NAME}-test"
+  env.DEV = "deven-test-dev"
+  env.STAGE = "deven-test-test"
 }
 
 pipeline {
@@ -57,7 +57,11 @@ pipeline {
         // This places your artifacts into right location inside your S2I image
         // if the S2I image supports it.
         script {
-          openshift.selector('bc', env.APP_NAME).startBuild("--from-file=target/${env.APP_NAME}*.jar", '--wait')
+          openshift.withCluster() {
+            openshift.withProject(env.BUILD) {
+              openshift.selector('bc', env.APP_NAME).startBuild("--from-file=target/${env.APP_NAME}*.jar", '--wait')
+            }
+          }
         }
       }
     }
