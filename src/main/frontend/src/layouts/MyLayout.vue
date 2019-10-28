@@ -84,16 +84,23 @@ export default {
       this.$refs.editorInput.focus();
     },
     gravatar: () => {
-      let length = 32;
-      let result = "";
-      let characters = "1234567890abcdef";
-      let charactersLength = characters.length;
-      for (let i = 0; i < length; i++) {
-        result += characters.charAt(
-          Math.floor(Math.random() * charactersLength)
-        );
+      let gravatar = "";
+      if (this.$q.cookies.has('gravatar')) {
+        gravatar = this.$q.cookies.get("gravatar");
+      } else {
+        let length = 32;
+        let result = "";
+        let characters = "1234567890abcdef";
+        let charactersLength = characters.length;
+        for (let i = 0; i < length; i++) {
+          result += characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+          );
+        }
+        gravatar = "https://www.gravatar.com/avatar/" + result + "?d=robohash";
       }
-      return "https://www.gravatar.com/avatar/" + result + "?d=robohash";
+      this.$q.cookies.set("gravatar", gravatar);
+      return gravatar;
     }
   },
   watch: {
@@ -123,6 +130,25 @@ export default {
 
     this.eventBus.onopen = () => {
       console.log("Event bus bridge open");
+      this.eventBus.registerHandler("messages", (error, res) => {
+        if (error === null) {
+          res.body["sent"] = true;
+          if (res.body.avatar === this.userhash) {
+            res.body["sent"] = false;
+          }
+          this.messageList.push(res.body);
+          if (this.messageList.length > 200) {
+            this.messageList.shift();
+          }
+        } else {
+          console.log(
+            "Error connecting to event bus bridge: " + JSON.stringify(error)
+          );
+        }
+      });
+    };
+    this.eventBus.onreconnect = () => {
+      console.log("Event bus bridge reconnected");
       this.eventBus.registerHandler("messages", (error, res) => {
         if (error === null) {
           res.body["sent"] = true;
