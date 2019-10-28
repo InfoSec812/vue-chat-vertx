@@ -89,6 +89,7 @@
   </dependencies>
 
   <build>
+    <finalName>vue-vertx-chat</finalName>
     <plugins>
       <plugin>
         <!-- The gmavenplus plugin is used to compile Groovy code. To learn more about this plugin,
