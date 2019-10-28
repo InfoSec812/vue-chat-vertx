@@ -1,6 +1,7 @@
 package com.redhat.stp.appdev.chat;
 
 import io.reactivex.Completable;
+import io.vertx.core.Future;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.handler.sockjs.BridgeOptions;
@@ -13,7 +14,7 @@ import io.vertx.reactivex.ext.web.handler.sockjs.SockJSHandler;
 public class MainVerticle extends AbstractVerticle {
 
   @Override
-  public Completable rxStart() {
+  public void start(Future<Void> startFuture) throws Exception {
     Router router = Router.router(vertx);
     CorsHandler corsHandler = CorsHandler.create(".*").allowedHeader("Access-Control-Request-Method")
       .allowedHeader("Access-Control-Allow-Origin")
@@ -29,11 +30,11 @@ public class MainVerticle extends AbstractVerticle {
     sockJsBridge.bridge(bridgeOpts);
     router.route().handler(StaticHandler.create("webroot"));
     router.route("/eventbus/*").handler(sockJsBridge);
-    return vertx.createHttpServer()
-                .requestHandler(router)
-                .rxListen(8080, "0.0.0.0")
-                .doOnError(Completable::error)
-                .toFlowable()
-                .ignoreElements();
+    vertx.createHttpServer()
+      .requestHandler(router::accept)
+      .rxListen(8080, "0.0.0.0")
+      .doOnError(startFuture::fail)
+      .subscribe(server -> startFuture.complete());
   }
+
 }
