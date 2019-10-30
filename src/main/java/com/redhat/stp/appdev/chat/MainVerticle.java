@@ -24,7 +24,9 @@ public class MainVerticle extends AbstractVerticle {
     router.route().handler(corsHandler);
     BridgeOptions bridgeOpts = new BridgeOptions()
       .addInboundPermitted(new PermittedOptions().setAddress("messages"))
-      .addOutboundPermitted(new PermittedOptions().setAddress("messages"));
+      .addInboundPermitted(new PermittedOptions().setAddress("history"))
+      .addOutboundPermitted(new PermittedOptions().setAddress("messages"))
+      .addOutboundPermitted(new PermittedOptions().setAddress("history"));
     SockJSHandler sockJsBridge = SockJSHandler.create(vertx);
     sockJsBridge.bridge(bridgeOpts);
     router.get("/health").handler(ctx -> {
