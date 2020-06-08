@@ -62,7 +62,7 @@ module.exports = function (ctx) {
       // analyze: true,
       // preloadChunks: false,
       // extractCSS: false,
-      distDir: '../../../target/classes/webroot',
+      distDir: '../resources/webroot',
 
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {

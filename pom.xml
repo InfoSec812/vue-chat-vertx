@@ -11,7 +11,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <maven-compiler-plugin.version>3.9.1</maven-compiler-plugin.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven-shade-plugin.version>2.4.3</maven-shade-plugin.version>
@@ -123,14 +123,14 @@
               <goal>install-node-and-npm</goal>
             </goals>
             <!-- optional: default phase is "generate-resources" -->
-            <phase>generate-resources</phase>
+            <phase>none</phase>
           </execution>
           <execution>
             <id>npm-install</id>
             <goals>
               <goal>npm</goal>
             </goals>
-            <phase>generate-resources</phase>
+            <phase>none</phase>
             <configuration>
               <arguments>install</arguments>
             </configuration>
@@ -140,7 +140,7 @@
             <goals>
               <goal>npm</goal>
             </goals>
-            <phase>generate-resources</phase>
+            <phase>none</phase>
             <configuration>
               <arguments>rebuild node-sass</arguments>
             </configuration>
@@ -150,7 +150,7 @@
             <goals>
               <goal>npm</goal>
             </goals>
-            <phase>prepare-package</phase>
+            <phase>none</phase>
             <configuration>
               <arguments>run build</arguments>
             </configuration>
@@ -185,6 +185,14 @@
             </fileset>
             <fileset>
               <directory>src/main/frontend/node_modules</directory>
+              <followSymlinks>false</followSymlinks>
+              <useDefaultExcludes>false</useDefaultExcludes>
+              <includes>
+                <include>*</include>
+              </includes>
+            </fileset>
+            <fileset>
+              <directory>src/main/resources/webroot</directory>
               <followSymlinks>false</followSymlinks>
               <useDefaultExcludes>false</useDefaultExcludes>
               <includes>

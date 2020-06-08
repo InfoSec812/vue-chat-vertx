@@ -17,8 +17,8 @@
     "quasar": "^1.0.0"
   },
   "devDependencies": {
-    "@types/vertx3-eventbus-client": "^3.5.0",
-    "vertx3-eventbus-client": "^3.8.3",
+    "@types/vertx3-eventbus-client": "^3.5.1",
+    "vertx3-eventbus-client": "^3.9.1",
     "@quasar/app": "^1.0.0",
     "@vue/eslint-config-prettier": "^4.0.0",
     "babel-eslint": "^10.0.1",

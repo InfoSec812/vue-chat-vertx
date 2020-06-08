@@ -1,19 +1,31 @@
-= Vue-chat
+= Vert.x + VueJS + Quasar websocket-chat
 
-image:https://img.shields.io/badge/vert.x-3.8.3-purple.svg[link="https://vertx.io"]
+image:https://img.shields.io/badge/vert.x-3.9.1-purple.svg[link="https://vertx.io"]
 
 This application was generated using http://start.vertx.io
+
+== Overview
+
+This is a VERY SIMPLE websocket chat application with a VueJS+Quasar UI. The backend is written using a single Vert.x class in Java.
 
 == Building
 
 To package your application:
 ```
-./mvnw clean package
+./mvnw clean frontend:install-node-and-npm \
+      frontend:npm@npm-install \
+      frontend:npm@update-sass \
+      frontend:npm@build-dist \
+      package
 ```
 
-To run your application:
+To run your application in Java Dev mode:
 ```
-./mvnw clean compile vertx:run
+./mvnw clean frontend:install-node-and-npm \
+      frontend:npm@npm-install \
+      frontend:npm@update-sass \
+      frontend:npm@build-dist \
+      compile vertx:run
 ```
 
 == Help
